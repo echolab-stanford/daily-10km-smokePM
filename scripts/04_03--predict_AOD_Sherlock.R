@@ -69,7 +69,7 @@ crosswalk <- readRDS(paste0(path_data,"1_grids/grid_crosswalk_1km_10km.rds"))
 #### Cross-sectional variables ####
 # Latitude and longitude
 print(paste("Longitude and latitude", "--------------------------------------------------"))
-if(exists(paste0(path_temp, "cell_cent.rds"))){
+if(file.exists(paste0(path_temp, "cell_cent.rds"))){
   cell_cent = readRDS(paste0(path_temp, "cell_cent.rds"))
 } else{
   start_time = get_start_time()
@@ -87,7 +87,7 @@ if(exists(paste0(path_temp, "cell_cent.rds"))){
 
 # Elevation
 print(paste("Elevation", "--------------------------------------------------"))
-if(exists(paste0(path_temp, "elev.rds"))){
+if(file.exists(paste0(path_temp, "elev.rds"))){
   elev = readRDS(paste0(path_temp, "elev.rds"))
 } else{
   start_time = get_start_time()
@@ -113,7 +113,7 @@ if(exists(paste0(path_temp, "elev.rds"))){
 # NLCD
 # Takes a few hours
 print(paste("NLCD", "--------------------------------------------------"))
-if(exists(paste0(path_temp, "nlcd.rds"))){
+if(file.exists(paste0(path_temp, "nlcd.rds"))){
   nlcd = readRDS(paste0(path_temp, "nlcd.rds"))
 } else{
   start_time = get_start_time()
