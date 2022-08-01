@@ -1,0 +1,219 @@
+---
+title: "Trajectories Mapped By Injection Height"
+output: html_document
+---
+
+```{r include = FALSE}
+knitr::opts_chunk$set(include = FALSE)
+path_dropbox <- "~/BurkeLab Dropbox/Data/"
+library(dplyr)
+library(splitr)
+library(sf)
+library(leaflet)
+```
+
+```{r}
+trajectory_plot_iheight <- function(x,
+                            show_hourly = TRUE,
+                            color_scheme = "cycle_hues") {
+  
+  if (inherits(x, "trajectory_model")) {
+    if (!is.null(x$traj_df)) {
+      traj_df <- x$traj_df
+    } else {
+      stop("There is no data available for plotting.")
+    }
+  }
+  
+  if (inherits(x, "data.frame")) {
+    if (all(c("run", "receptor", "hour_along", "traj_dt",
+              "lat", "lon", "height", "traj_dt_i") %in% colnames(x))) {
+      traj_df <- x
+    } else {
+      stop("This tibble does not contain plottable trajectory data.")
+    }
+  }
+  
+  dt_runs <- traj_df$traj_dt_i %>% unique() %>% length()
+  
+  colors <- colorFactor(
+    palette = c("red", "green", "blue"),
+    domain = traj_df$height_i
+  )
+  
+  # Correct longitude values near prime meridian
+  traj_df$lon[which(traj_df$lon > 0)] <- 
+    traj_df$lon[which(traj_df$lon > 0)] - (180*2)
+  
+  receptors <-
+    traj_df %>%
+    dplyr::pull(receptor) %>%
+    unique()
+  
+  dates <-
+    traj_df %>%
+    dplyr::pull(traj_dt_i) %>%
+    unique()
+  
+  traj_plot <- 
+    leaflet::leaflet() %>%
+    leaflet::addProviderTiles(
+      provider = "OpenStreetMap",
+      group = "OpenStreetMap"
+    ) %>%
+    leaflet::addProviderTiles(
+      provider = "CartoDB.DarkMatter",
+      group = "CartoDB Dark Matter"
+    ) %>%
+    leaflet::addProviderTiles(
+      provider = "CartoDB.Positron",
+      group = "CartoDB Positron"
+    ) %>%
+    leaflet::addProviderTiles(
+      provider = "Esri.WorldTerrain",
+      group = "ESRI World Terrain"
+    ) %>%
+    leaflet::addProviderTiles(
+      provider = "Stamen.Toner",
+      group = "Stamen Toner"
+    ) %>%
+    leaflet::fitBounds(
+      lng1 = min(traj_df[["lon"]]),
+      lat1 = min(traj_df[["lat"]]),
+      lng2 = max(traj_df[["lon"]]),
+      lat2 = max(traj_df[["lat"]])
+    ) %>%
+    leaflet::addLayersControl(
+      baseGroups = c(
+        "CartoDB Positron", "CartoDB Dark Matter",
+        "Stamen Toner", "ESRI World Terrain"
+      ),
+      overlayGroups = c("trajectory_points", "trajectory_paths"),
+      position = "topright"
+    )
+  
+  # Get different trajectories by receptor and by date
+  for (i in seq_along(receptors)) {
+    
+    receptor_i <- receptors[i]
+    
+    for (j in seq_along(dates)) {
+      
+      date_i <- dates[j]
+      
+      wind_traj_ij <-
+        traj_df %>%
+        dplyr::filter(
+          receptor == receptor_i,
+          traj_dt_i == date_i
+        )
+      
+      popup <- 
+        paste0(
+          "<strong>trajectory</strong> ", wind_traj_ij[["traj_dt_i"]],
+          "<br><strong>at time</strong> ", wind_traj_ij[["traj_dt"]],
+          " (", wind_traj_ij[["hour_along"]],
+          " h)<br><strong>height</strong> ", wind_traj_ij[["height"]],
+          " <font size=\"1\">m AGL</font> / ",
+          "<strong>P</strong> ", wind_traj_ij[["pressure"]],
+          " <font size=\"1\">hPa</font>"
+        )
+      
+      traj_plot <-
+        traj_plot %>%
+        leaflet::addPolylines(
+          lng = wind_traj_ij[["lon"]],
+          lat = wind_traj_ij[["lat"]],
+          group = "trajectory_paths",
+          weight = 2,
+          smoothFactor = 1,
+          color = colors(wind_traj_ij[["height_i"]])
+        ) %>%
+        leaflet::addCircles(
+          lng = wind_traj_ij[["lon"]],
+          lat = wind_traj_ij[["lat"]],
+          group = "trajectory_points",
+          radius = 250,
+          fill = TRUE,
+          color = colors(wind_traj_ij[["height_i"]]),
+          fillColor = colors(wind_traj_ij[["height_i"]]), 
+          popup = popup
+        )
+    }
+  }
+  
+  traj_plot %>%
+        leaflet::addLegend(
+          "bottomright",
+          pal = colors,
+          values = traj_df$height_i,
+          title = "mAGL",
+          opacity = 1
+        )
+}
+```
+
+The maps below plot 72-hour trajectories initialized at HYSPLIT points following 
+Brey et al. Each map shows a random sample of 100 trajectories from those 
+initiated at points overlapping a specified wildfire perimeter.
+
+```{r}
+# Read in HYSPLIT points
+dat_hysplit0 <- readRDS(paste0(path_dropbox, "hms_hysplit/hms_hysplit_points_CALFIRE_wf.rds"))
+dat_hysplit <- dat_hysplit0 %>% st_drop_geometry() %>% select(-interval)
+
+# Read in trajectories
+dat_traj <- readRDS(paste0(path_dropbox, "hms_hysplit/trajectories/trajectories_CA_2020_linked.rds"))
+dat_traj <- dat_traj %>% 
+  # Set up for plotting
+  rename(run = id_traj) %>% 
+  # Slows down plotting significantly but necessary to avoid connecting 
+  # different trajectories
+  group_by(traj_dt_i) %>% 
+  mutate(receptor = match(run, unique(run))) %>% 
+  ungroup()
+```
+
+```{r}
+# Get trajectories for specific fires
+id_aug_complex <- dat_hysplit %>% 
+  filter(FIRE_NAME == "AUGUST COMPLEX FIRES") %>% 
+  pull(id_hysplit) %>% 
+  unique()
+id_scu_complex <- dat_hysplit %>% 
+  filter(FIRE_NAME == "SCU COMPLEX") %>% 
+  pull(id_hysplit) %>% 
+  unique()
+
+traj_aug_complex <- dat_traj %>% 
+  filter(id_hysplit %in% id_aug_complex) %>% 
+  select(-id_hysplit) %>% 
+  distinct()
+traj_scu_complex <- dat_traj %>% 
+  filter(id_hysplit %in% id_scu_complex) %>% 
+  select(-id_hysplit) %>% 
+  distinct()
+```
+
+August Complex
+
+```{r include = TRUE}
+# Plot random sample of trajectories colored by injection height
+set.seed(123)
+rand <- sample(unique(traj_aug_complex$run), 100)
+trajectory_plot_iheight(traj_aug_complex %>% filter(run %in% rand))
+```
+
+SCU Complex
+
+```{r include = TRUE}
+set.seed(123)
+rand <- sample(unique(traj_scu_complex$run), 100)
+trajectory_plot_iheight(traj_scu_complex %>% filter(run %in% rand))
+```
+
+```{r}
+# Testing on small subset
+# x <- traj_scu_complex %>% filter(run %in% rand)
+# trajectory_plot_iheight(x %>% filter(run %in% rand[c(9, 100)]))
+```

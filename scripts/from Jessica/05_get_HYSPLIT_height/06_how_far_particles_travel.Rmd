@@ -1,0 +1,33 @@
+---
+title: "How Far Do Particles Travel?"
+output: html_document
+---
+
+```{r include = FALSE}
+path_dropbox <- "~/BurkeLab Dropbox/Data/"
+library(dplyr)
+library(purrr)
+library(zoo)
+library(splitr)
+```
+
+The map below plots a random sample of 100 trajectories from the set of 
+72-hour trajectories initialized at HYSPLIT points in California 2020 following 
+Brey et al.
+
+```{r echo = FALSE}
+# Read in trajectories
+dat_traj <- paste0(path_dropbox, "hms_hysplit/trajectories/trajectories_72hr_CA_2020.rds") %>% 
+  map_dfr(readRDS) %>% 
+  mutate(receptor = 1)
+
+# Get run column identifying each trajectory
+inits <- dat_traj$hour_along == 0
+dat_traj[inits, "run"] <- 1:sum(inits)
+dat_traj$run <- na.locf(dat_traj$run)
+
+# Plot random sample of trajectories
+set.seed(123)
+rand <- sample(1:max(dat_traj$run), 100)
+trajectory_plot(dat_traj %>% filter(run %in% rand))
+```
