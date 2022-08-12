@@ -7,10 +7,14 @@ path_github <- "~/Documents/GitHub/purple-air-infiltration/" # delete once move 
 #            key = readRDS("../../Registrations/Copernicus Climate Data Store/CDS_API_KEY.rds"),
 #            service = "cds")
 
+env_name = "era5"
+if (!(env_name %in% reticulate::conda_list()$name)) {
+  reticulate::conda_create(env_name)
+}
+reticulate::use_condaenv(env_name, required = T)
 library(reticulate)
-# use_condaenv("r-reticulate")
-if (!py_module_available("cdsapi")) py_install("cdsapi", pip = TRUE)
-if (!py_module_available("tenacity")) py_install("tenacity", pip = TRUE)
+if (!py_module_available("cdsapi")) py_install("cdsapi", forge = T)
+if (!py_module_available("tenacity")) py_install("tenacity", forge = T)
 source_python(paste0(path_github, "work/01_process_aot_smoke_pm/14_define_CDS_API_request.py"))
 
 library(stringr)
