@@ -3,7 +3,7 @@
 # Creates a 1 km grid across the contiguous US.
 # ------------------------------------------------------------------------------
 
-ee_Initialize()
+ee_Initialize(email = gee_email)
 
 states <- ee$FeatureCollection("TIGER/2016/States") %>% 
   ee$FeatureCollection$filter(ee$Filter$inList('STATEFP',
@@ -26,7 +26,7 @@ maiac_rast <- ee_as_raster(maiac_im,
 crs(maiac_rast) <- maiac_crs # update the crs, since it doesn't quite copy over well
 
 # load the 10km grid to ensure 1km grid covers it
-grid_10km <- st_read("./data/1_grids/10km_grid") %>%
+grid_10km <- st_read(file.path(path_data, "1_grids", "10km_grid")) %>%
   st_transform(maiac_crs)
 grid_union <- st_union(grid_10km) %>% st_sf
 
@@ -72,10 +72,10 @@ grid_1km$grid_id <- 1:nrow(grid_1km)
 
 # save the grid in both sinusoidal and wgs projections
 # earth engine had trouble loading the non-wgs projection, this is also slow-ish 
-st_write(grid_1km, "./data/1km_aod_grid", driver = "ESRI Shapefile")
+st_write(grid_1km, file.path(path_data, "1km_aod_grid"), driver = "ESRI Shapefile")
 
 st_write(grid_1km %>% st_transform(st_crs(4326)), 
-         "./data/1km_aod_grid_wgs84", driver = "ESRI Shapefile")
+         file.path(path_data, "1km_aod_grid_wgs84"), driver = "ESRI Shapefile")
 
 # upload resulting to earth engine, named "grid_aod_1km/grid_aod_1km_wgs84"
 
@@ -95,4 +95,4 @@ cross <- data.frame(grid_id_1km = grid_1km_cent$grid_id,
 
 cross$grid_id_10km = grid_10km$ID[cross$grid_no_10km]
 
-saveRDS(cross %>% select(contains("grid_id")), "./data/grid_crosswalk_1km_10km.rds")
+saveRDS(cross %>% select(contains("grid_id")), file.path(path_data, "1_grids", "grid_crosswalk_1km_10km.rds"))

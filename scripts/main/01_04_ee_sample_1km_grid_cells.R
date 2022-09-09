@@ -57,7 +57,7 @@ subgrid_1km_tasks <- 1:50 %>%
 # check for task completion
 map_chr(subgrid_1km_tasks, function(x) x$status()$state)
 
-output_local <- "./data/populationDensity_1km_subgrid/"
+output_local <- file.path(path_data, "2_from_EE", "populationDensity_1km_subgrid")
 
 subgrid_1km_tasks %>% map(function(t){
   ee_drive_to_local(t, 
@@ -72,7 +72,7 @@ pop_1km <- purrr::map_dfr(list.files(output_local, full.names = TRUE),
                           })
 
 
-grid_1km <- st_read("./data/1km_aod_grid_wgs84")
+grid_1km <- st_read(file.path(path_data, "1_grids", "1km_aod_grid_wgs84"))
 
 set.seed(12345)
 sample_ids <- sample(pop_1km$grid_id, size  = 5000, prob = pop_1km$mean)
@@ -85,7 +85,7 @@ grid_sample <- grid_1km %>% filter(grid_id %in% sample_ids)
 # plot(st_geometry(states))
 # plot(st_geometry(grid_sample), add = TRUE, border = "red")
 
-st_write(grid_sample, "./data/1km_aod_grid_wgs84_training", 
+st_write(grid_sample, file.path(path_data, "1_grids", "1km_aod_grid_wgs84_training"), 
          driver = "ESRI Shapefile")
 
 # manually upload resulting shapefile to earth engine as "grid_aod_1km/grid_aod_1km_wgs84_training")

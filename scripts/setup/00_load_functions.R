@@ -1,3 +1,30 @@
+# Timers
+print_time <- function(start, unit = "auto", message = "Time elapsed:") {
+  end <- Sys.time()
+  d <- difftime(time1 = end, time2 = start, units = unit)
+  t <- round(d, digits = 1)
+  u <- units(d)
+  
+  print(paste("Start time:", start))
+  print(paste("End time:", end))
+  message <- paste(message, t, u)
+  print(message)
+  return(d)
+}
+
+get_start_time <- function(message = "Time started:") {
+  t <- Sys.time()
+  print(paste(message, t))
+  return(t)
+}
+
+
+
+
+
+
+
+
 
 nonsmoke_medians <- function(data, 
                              main_var, 
@@ -43,4 +70,15 @@ nonsmoke_medians <- function(data,
     transmute(!!spatial_unit, !!temporal_unit, !!temporal_trend,
               nobs_3yr,
               !!new_name := main_var_med_3yr)
+}
+
+
+
+
+
+
+mid_rescaler <- function(mid = 0) {
+  function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
+    scales::rescale_mid(x, to, from, mid)
+  }
 }

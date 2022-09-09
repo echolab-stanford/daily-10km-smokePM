@@ -2,7 +2,7 @@
 # Written by: Marissa Childs
 # Splits 10 km and 1 km grids into chunks.
 # ------------------------------------------------------------------------------
-ee_Initialize()
+ee_Initialize(email = gee_email)
 
 # this folder should be publicly readable by anyone with an earth engine account
 # alternatively, you can upload your own 10km grid and replace with your own asset folder

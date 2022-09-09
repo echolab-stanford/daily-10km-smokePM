@@ -1,45 +1,3 @@
-library(tidyverse)
-library(magrittr)
-
-library(sp)
-library(sf)
-library(raster)
-library(rgdal)
-library(rgeos)
-
-
-library(dplyr)
-
-library(sf)
-library(sp)
-library(tigris)
-library(rgeos)
-library(SpatialPosition)
-
-library(tidyverse)
-library(magrittr)
-library(rgee)
-library(sf)
-library(raster)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 library(RCurl)
 library(R.utils)
 library(XML)
@@ -47,33 +5,43 @@ library(rvest)
 # library(httr)
 # library(jsonlite)
 library(rlang)
-library(reticulate)
+# py_env_name = "daily-10km-smokePM"
+# reticulate::use_condaenv(py_env_name, required = T)
+# library(reticulate)
 library(ff)
-# 
+#
 library(tigris)
 library(tidycensus)
 library(rgee)
-# 
+
+# ee_install_set_pyenv(py_path = py_config()$python, py_env = py_env_name, Renviron = "local")
+
+# ee_check() # Confirm GEE dependencies installed properly
+# if (!py_module_available("numpy")) conda_install(py_env_name, "numpy")
+# if (!py_module_available("earthengine-api")) conda_install(py_env_name, "earthengine-api")
+# if (!py_module_available("geojsonio")) conda_install(py_env_name, "geojsonio")
+
+#
 # library(gtrendsR)
 # library(rstan)
 # library(con2aqi)
 library(splitr)
-# 
+#
 library(tools)
 library(readr)
 library(readxl)
 # library(tictoc)
 library(retry)
-# 
+#
 library(stringr)
 # library(stringi)
 library(lubridate)
-# 
+#
 # library(comprehenr)
 library(parallel)
 library(foreach)
 library(doParallel)
-# 
+#
 # library(RANN)
 library(FNN)
 library(sp)
@@ -87,7 +55,7 @@ library(SpatialPosition)
 # library(nngeo)
 # library(cleangeo)
 library(exactextractr)
-# 
+#
 library(magrittr)
 library(tibble)
 library(plyr)
@@ -95,11 +63,11 @@ library(dplyr)
 library(tidyr)
 library(purrr)
 # library(zoo)
-# 
+#
 # library(bit64)
 import::from(data.table, .except = c("hour", "month", "wday", "week", "year"))
 # library(fst)
-# 
+#
 library(gtable)
 library(fixest)
 library(splines)
@@ -111,14 +79,14 @@ library(splines)
 # library(modelsummary)
 # library(FDRestimation)
 # library(DescTools)
-# 
+#
 # library(mlr3)
 # library(mlr3learners)
 # library(mlr3tuning)
 # library(ranger)
 library(xgboost)
 library(rBayesianOptimization)
-# 
+#
 # library(grDevices)
 library(ggplot2)
 # library(ggpmisc)
@@ -128,6 +96,7 @@ library(gridExtra)
 library(cowplot)
 # library(corrplot)
 library(scales)
+library(RColorBrewer)
 # library(wesanderson)
 # library(ipumsr)
 # library(BAMMtools)

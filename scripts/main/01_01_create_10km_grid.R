@@ -26,14 +26,14 @@ data_ll = spTransform(data_ll, proj)
 data_ll = gBuffer(data_ll, byid=T, width=res/2, capStyle="SQUARE") #slow
 data_ll = st_as_sf(data_ll)
 st_write(obj=data_ll, 
-         dsn=paste0(db_path, "Data/boundaries/10km_grid"),
+         dsn=file.path(path_data, "1_grids", "10km_grid"),
          layer="10km_grid", driver="ESRI Shapefile")
 
 # transform and save the 10km grid because its doesn't load in EE with original crs
 grid <- data_ll %>%
   st_transform(st_crs(4326))
 
-st_write(grid, "grid_10km_wgs84", 
+st_write(grid, file.path(path_data, "1_grids", "grid_10km_wgs84"), 
          layer="10km_grid_wgs84",
          driver = "ESRI Shapefile")
 # upload resulting to earth engine, named "grid_10km/grid_10km_wgs84"

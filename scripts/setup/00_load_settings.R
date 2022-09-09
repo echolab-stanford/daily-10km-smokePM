@@ -1,10 +1,4 @@
 #-------------------------------------------------------------------------------
-# Set the name of the conda environment
-py_env_name = "daily-10km-smokePM"
-reticulate::conda_create(py_env_name)
-reticulate::use_condaenv(py_env_name, required = T)
-ee_install()
-
 # Provide your Google Earth Engine email
 gee_email = readRDS("~/Documents/Registrations/Google Earth Engine/GEE_email.rds") # "INSERT YOUR GEE EMAIL HERE, e.g. jdoe@stanford.edu"
 
@@ -21,6 +15,8 @@ path_dropbox = "~/BurkeLab Dropbox/Projects/daily-10km-smokePM-testing/" # "INSE
 path_github = "~/Documents/GitHub/daily-10km-smokePM/" # "INSERT PATH TO GITHUB REPO HERE"
 
 # File paths based on root folders above
+path_data = file.path(path_dropbox, "data")
+path_output = file.path(path_dropbox, "output")
 path_tables = file.path(path_github, "tables", "raw")
 path_figures = file.path(path_github, "figures", "raw")
 path_setup = file.path(path_github, "scripts", "setup")
