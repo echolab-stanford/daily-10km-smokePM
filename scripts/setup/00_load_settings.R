@@ -3,7 +3,12 @@
 gee_email = readRDS("~/Documents/Registrations/Google Earth Engine/GEE_email.rds") # "INSERT YOUR GEE EMAIL HERE, e.g. jdoe@stanford.edu"
 
 # Set the number of cores to use in parallel computing
-num_cores = 1 # default sequential
+num_cores = Sys.getenv("SLURM_CPUS_PER_TASK")
+if (nchar(num_cores) > 0) {
+  num_cores = as.integer(num_cores) - 1
+} else {
+  num_cores = 1 # default sequential
+}
 
 # Provide your US Census API Key
 key <- readRDS("~/Documents/Registrations/US Census/us_census_data_api_key.rds") # "INSERT YOUR US CENSUS BUREAU API KEY HERE"
