@@ -1,3 +1,7 @@
+#-------------------------------------------------------------------------------
+# Written by: Marissa Childs
+# Combines smoke PM2.5 training dataset.
+#-------------------------------------------------------------------------------
 # NOTES: 
 # stations with NA for grid cell are in HI or AK
 

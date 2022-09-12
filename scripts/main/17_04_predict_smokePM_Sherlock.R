@@ -5,8 +5,8 @@ source("scripts/setup/00_load_settings.R")
 num_cores = as.integer(Sys.getenv("SLURM_CPUS_PER_TASK")) - 1
 
 #-------------------------------------------------------------------------------
-# Get Smoke PM2.5 Predictions
 # Written by: Marissa Childs and Jessica Li
+# Makes smoke PM2.5 predictions.
 #-------------------------------------------------------------------------------
 # Set time period
 start_date = "20060101"

@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
-# Combine Smoke PM2.5 Predictions
 # Written by: Marissa Childs
+# Combines smoke PM2.5 predictions.
 #-------------------------------------------------------------------------------
 smokePM_pred <- list.files(
   file.path(path_output, "smokePM_predictions", "10km_smoke_days"), 

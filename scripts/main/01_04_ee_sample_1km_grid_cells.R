@@ -1,9 +1,9 @@
+# ee_Initialize(email = gee_email)
+
 # ------------------------------------------------------------------------------
 # Written by: Marissa Childs
 # Samples 1 km grid cells with population weighting.
 # ------------------------------------------------------------------------------
-ee_Initialize()
-
 population <- ee$ImageCollection("WorldPop/GP/100m/pop") %>% 
   ee$ImageCollection$filterMetadata("country", "equals", "USA") %>% 
   ee$ImageCollection$filterMetadata("year", "equals", 2013) %>% 

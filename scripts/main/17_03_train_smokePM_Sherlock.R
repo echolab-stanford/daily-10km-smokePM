@@ -3,8 +3,8 @@ source("scripts/setup/00_load_functions.R")
 source("scripts/setup/00_load_settings.R")
 
 #-------------------------------------------------------------------------------
-# Train Smoke PM2.5 Model
 # Written by: Marissa Childs
+# Trains smoke PM2.5 model.
 #-------------------------------------------------------------------------------
 args <- commandArgs(TRUE)
 cv_fold_num <- as.numeric(args[1])

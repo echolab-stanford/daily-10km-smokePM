@@ -1,6 +1,7 @@
 #-------------------------------------------------------------------------------
 # Provide your Google Earth Engine email
 gee_email = readRDS("~/Documents/Registrations/Google Earth Engine/GEE_email.rds") # "INSERT YOUR GEE EMAIL HERE, e.g. jdoe@stanford.edu"
+ee_Initialize(email = gee_email)
 
 # Set the number of cores to use in parallel computing
 num_cores = Sys.getenv("SLURM_CPUS_PER_TASK")

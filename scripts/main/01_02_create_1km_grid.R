@@ -1,10 +1,9 @@
+# ee_Initialize(email = gee_email)
+
 # ------------------------------------------------------------------------------
 # Written by: Marissa Childs
 # Creates a 1 km grid across the contiguous US.
 # ------------------------------------------------------------------------------
-
-ee_Initialize(email = gee_email)
-
 states <- ee$FeatureCollection("TIGER/2016/States") %>% 
   ee$FeatureCollection$filter(ee$Filter$inList('STATEFP',
                                                as.list(c("02","60","66","15","72","78","69")))$Not())
