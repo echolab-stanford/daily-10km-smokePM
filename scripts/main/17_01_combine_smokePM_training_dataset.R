@@ -232,4 +232,5 @@ pred_data %>%
   mutate(month = as.factor(month)) %>% 
   left_join(epa_grid_cells %>% select(grid_id_10km, fold), by = "grid_id_10km") %>% 
   filter(!(date %in% smoke_missing_dates)) %>% 
+  drop_na(smokePM) %>% 
   saveRDS(file.path(path_data, "4_clean", "smokePM_training.rds"))
