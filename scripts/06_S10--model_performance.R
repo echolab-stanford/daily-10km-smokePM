@@ -211,6 +211,7 @@ model_metrics %>%
   geom_point() + 
   geom_line() + 
   scale_x_discrete(expand = expansion(mult = 0.04)) +
+      ylim(0, NA) + 
   facet_wrap(~metric, scales = "free", strip.position = "left",
              labeller = label_parsed) + 
   theme_classic() +
