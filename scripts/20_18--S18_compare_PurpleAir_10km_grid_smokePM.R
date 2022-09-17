@@ -8,6 +8,7 @@ library(sf)
 library(tigris)
 library(dplyr)
 library(tidyr)
+library(fixest)
 library(ggplot2)
 library(scales)
 library(gridExtra)
@@ -136,7 +137,7 @@ purpleair = purpleair %>%
 #-------------------------------------------------------------------------------
 #### Match to smoke PM predictions ####
 # Load 10 km grid smoke PM predictions
-preds = readRDS(file.path(path_project, "output/smokePM_predictions_2006_2020.rds")) %>% 
+preds = readRDS(file.path(path_project, "output/smokePM_predictions_20060101_20201231.rds")) %>% 
   mutate(smokePM_pred = pmax(smokePM_pred, 0))
 
 # Join smoke PM predictions to observations by 10 km grid cell ID and date
@@ -214,3 +215,6 @@ p = grid.arrange(p_comparison, p_dates, p_map,
                                         nrow = 3, byrow = T))
 ggsave(file.path(path_github, "figures/PurpleAir_comparison.png"), 
        plot = p, width = 14, height = 8)
+
+# Calculate R2
+r2(feols(smokePM_pred ~ smokePM, df), "r2")
