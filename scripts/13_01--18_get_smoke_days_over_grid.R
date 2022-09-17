@@ -81,9 +81,9 @@ for (year_month in year_months) {
                          date = days[d], 
                          smoke_day = NA,
                          total = NA,
-                         thin = NA,
+                         light = NA,
                          medium = NA,
-                         thick = NA,
+                         dense = NA,
                          note_smoke_date_not_online = days[d] %in% dates_not_online,
                          note_smoke_date_empty_data = days[d] %in% dates_empty_data,
                          note_smoke_date_repaired_geometry = days[d] %in% dates_repaired_geometry)
@@ -93,7 +93,7 @@ for (year_month in year_months) {
     if (nrow(cur_smoke) == 0) {
       plumes = plumes %>% 
         mutate(across(c(smoke_day, total), ~ifelse(note_smoke_date_empty_data, 0, .x)),
-               across(c(thin, medium, thick), ~ifelse(note_smoke_date_empty_data & (date %in% dates_density), 0, .x)))
+               across(c(light, medium, dense), ~ifelse(note_smoke_date_empty_data & (date %in% dates_density), 0, .x)))
     } else if (nrow(cur_smoke) > 0) {
       # Find intersecting plumes and aggregate
       overlap = project_grid %>% 
@@ -103,22 +103,22 @@ for (year_month in year_months) {
         group_by(id_grid, date) %>% 
         summarize(total = sum(!is.na(id_plume)),
                   smoke_day = ifelse(total > 0, 1, 0),
-                  thin = sum(Density == 5, na.rm = TRUE),
+                  light = sum(Density == 5, na.rm = TRUE),
                   medium = sum(Density == 16, na.rm = TRUE),
-                  thick = sum(Density == 27, na.rm = TRUE)) %>% 
+                  dense = sum(Density == 27, na.rm = TRUE)) %>% 
         ungroup() %>% 
-        mutate(across(c(thin, medium, thick), 
+        mutate(across(c(light, medium, dense), 
                       ~ifelse(!(date %in% dates_density) | 
                                 ((date %in% dates_density) & 
                                    (total > 0) &
-                                   (thin == 0) &
+                                   (light == 0) &
                                    (medium == 0) &
-                                   (thick == 0)), NA, .x)))
+                                   (dense == 0)), NA, .x)))
       
       plumes = plumes %>% 
-        select(-smoke_day, -total, -thin, -medium, -thick) %>% 
+        select(-smoke_day, -total, -light, -medium, -dense) %>% 
         left_join(overlap) %>% 
-        select(id_grid, date, smoke_day, total, thin, medium, thick, 
+        select(id_grid, date, smoke_day, total, light, medium, dense, 
                note_smoke_date_not_online, note_smoke_date_empty_data,
                note_smoke_date_repaired_geometry)
     }
