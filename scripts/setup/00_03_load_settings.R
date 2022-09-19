@@ -23,6 +23,7 @@ path_github = "~/Documents/GitHub/daily-10km-smokePM/" # "INSERT PATH TO GITHUB 
 # File paths based on root folders above
 path_data = file.path(path_dropbox, "data")
 path_output = file.path(path_dropbox, "output")
+path_final = file.path(path_dropbox, "final")
 path_tables = file.path(path_github, "tables", "raw")
 path_figures = file.path(path_github, "figures", "raw")
 path_setup = file.path(path_github, "scripts", "setup")
