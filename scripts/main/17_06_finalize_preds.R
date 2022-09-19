@@ -20,6 +20,32 @@ preds = preds %>% mutate(date = format(date, "%Y%m%d"))
 write.csv(preds, file.path(path_final, "smokePM2pt5_predictions_on_smokedays_daily_10km_20060101-20201231.csv"), row.names = F)
 
 # ------------------------------------------------------------------------------
+# Load predictions aggregated to county level
+preds = readRDS(file.path(path_output, "county_smokePM_predictions_20060101_20201231.rds"))
+
+# Save
+saveRDS(preds, file.path(path_final, "smokePM2pt5_predictions_on_smokedays_daily_county_20060101-20201231.rds"))
+
+# Convert date to character
+preds = preds %>% mutate(date = format(date, "%Y%m%d"))
+
+# Save
+write.csv(preds, file.path(path_final, "smokePM2pt5_predictions_on_smokedays_daily_county_20060101-20201231.csv"), row.names = F)
+
+# ------------------------------------------------------------------------------
+# Load predictions aggregated to census tract level
+preds = readRDS(file.path(path_output, "tract_smokePM_predictions_20060101_20201231.rds"))
+
+# Save
+saveRDS(preds, file.path(path_final, "smokePM2pt5_predictions_on_smokedays_daily_tract_20060101-20201231.rds"))
+
+# Convert date to character
+preds = preds %>% mutate(date = format(date, "%Y%m%d"))
+
+# Save
+write.csv(preds, file.path(path_final, "smokePM2pt5_predictions_on_smokedays_daily_tract_20060101-20201231.csv"), row.names = F)
+
+# ------------------------------------------------------------------------------
 # Load 10 km grid
 grid_10km = read_sf(file.path(path_data, "1_grids", "grid_10km_wgs84"))
 
