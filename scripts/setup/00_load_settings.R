@@ -31,3 +31,4 @@ path_supplementary = file.path(path_github, "scripts", "supplementary")
 
 #-------------------------------------------------------------------------------
 nonContig_stateFIPS <- c("02","60","66","15","72","78","69")
+conus_stusps = setdiff(states()$STUSPS, c("AK", "AS", "GU", "HI", "MP", "PR", "VI"))

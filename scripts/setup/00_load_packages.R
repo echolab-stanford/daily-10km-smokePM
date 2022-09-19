@@ -5,22 +5,12 @@ library(rvest)
 # library(httr)
 # library(jsonlite)
 library(rlang)
-# py_env_name = "daily-10km-smokePM"
-# reticulate::use_condaenv(py_env_name, required = T)
 # library(reticulate)
 library(ff)
 #
 library(tigris)
 library(tidycensus)
 library(rgee)
-
-# ee_install_set_pyenv(py_path = py_config()$python, py_env = py_env_name, Renviron = "local")
-
-# ee_check() # Confirm GEE dependencies installed properly
-# if (!py_module_available("numpy")) conda_install(py_env_name, "numpy")
-# if (!py_module_available("earthengine-api")) conda_install(py_env_name, "earthengine-api")
-# if (!py_module_available("geojsonio")) conda_install(py_env_name, "geojsonio")
-
 #
 # library(gtrendsR)
 # library(rstan)
