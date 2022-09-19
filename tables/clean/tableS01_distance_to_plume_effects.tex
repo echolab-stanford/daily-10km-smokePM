@@ -1,0 +1,42 @@
+\begin{table}[H]
+\caption{Estimated effect on monitor \pmt of being underneath or near a plume or smoke day. The third and fourth columns (labeled w/ met.) control flexibly for meteorological variables including temperature, dewpoint temperature, planetary boundary layer minimum, maximum and mean height. Plume variables are based solely on the presence of HMS plumes, while smoke variables also include days identified as smoke-days based on AOD missingness and HYSPLIT trajectories. All regressions include monitor-month and state-month-year fixed effects.}
+\begin{tabular}{lcccc}
+\tabularnewline\midrule\midrule
+%Dependent Variable:&\multicolumn{4}{c}{pm25}\\
+  & plumes & smoke days & plumes w/ met. & smoke days w/ met.\\
+\midrule
+plume dist: overhead&4.504$^{***}$ &    & 3.099$^{***}$ &   \\
+  &(0.0510) &    & (0.0410) &   \\
+plume dist: 0-100&1.272$^{***}$ &    & 0.3164$^{***}$ &   \\
+  &(0.0203) &    & (0.0226) &   \\
+plume dist: 100-250&1.012$^{***}$ &    & 0.2041$^{***}$ &   \\
+  &(0.0150) &    & (0.0139) &   \\
+plume dist: 250-500&0.7020$^{***}$ &    & 0.1632$^{***}$ &   \\
+  &(0.0127) &    & (0.0104) &   \\
+plume dist: 500-750&0.3203$^{***}$ &    & 0.1121$^{***}$ &   \\
+  &(0.0117) &    & (0.0094) &   \\
+plume dist: 750-1000&0.0608$^{***}$ &    & 0.0619$^{***}$ &   \\
+  &(0.0105) &    & (0.0091) &   \\
+smoke dist: overhead&   & 4.934$^{***}$ &    & 3.399$^{***}$\\
+  &   & (0.0482) &    & (0.0385)\\
+smoke dist: 0-100&   & 1.947$^{***}$ &    & 0.8033$^{***}$\\
+  &   & (0.0202) &    & (0.0211)\\
+smoke dist: 100-250&   & 1.449$^{***}$ &    & 0.5029$^{***}$\\
+  &   & (0.0160) &    & (0.0141)\\
+smoke dist: 250-500&   & 0.9806$^{***}$ &    & 0.3568$^{***}$\\
+  &   & (0.0140) &    & (0.0113)\\
+smoke dist: 500-750&   & 0.4757$^{***}$ &    & 0.2037$^{***}$\\
+  &   & (0.0127) &    & (0.0103)\\
+smoke dist: 750-1000&   & 0.1570$^{***}$ &    & 0.1093$^{***}$\\
+  &   & (0.0113) &    & (0.0100)\\
+\midrule \emph{Fixed-effects}&   &   &   &  \\
+id$\times$month & Yes & Yes & Yes & Yes\\
+state$\times$year$\times$month & Yes & Yes & Yes & Yes\\
+\midrule
+Observations & 4,442,067&4,442,067&4,442,067&4,442,067\\
+Within R$^2$ & 0.021599&0.02626&0.125643&0.127239\\
+\midrule\midrule\multicolumn{5}{l}{\emph{One-way (id$\times$month) standard-errors in parentheses}}\\
+\multicolumn{5}{l}{\emph{Signif. Codes: ***: 0.01, **: 0.05, *: 0.1}}\\
+\end{tabular}
+\label{tab:plume_accuracy}
+\end{table}
