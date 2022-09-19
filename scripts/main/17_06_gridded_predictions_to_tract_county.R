@@ -1,7 +1,7 @@
-source("./scripts/0_config.R")
-library(sf)
-library(tigris)
-
+# ------------------------------------------------------------------------------
+# Written by: Marissa Childs
+# Aggregates 10 km grid smokePM predictions to county and census tract levels.
+# ------------------------------------------------------------------------------
 unit <- "tract" # alternatively, "tract"
 # load shapefile, plus 10km grid transformed to match the crs
 if(unit == "county"){
@@ -19,7 +19,7 @@ if(unit == "county"){
 }
 
 # read in the grid
-grid_10km <- st_read(paste0(data_path, "/1_grids/grid_10km_wgs84")) %>% 
+grid_10km <- st_read(file.path(path_data, "1_grids", "grid_10km_wgs84")) %>% 
   st_transform(st_crs(unit_sf))
 
 # make a crosswalk with intersection area with grid cells
@@ -30,14 +30,14 @@ unit_cross = st_intersection(unit_sf,
          area = st_area(.))} 
 
 # save the crosswalk since it takes a while to make 
-saveRDS(unit_cross, paste0("./scratch/", unit, "_grid_area_crosswalk.rds"))
+saveRDS(unit_cross, file.path(path_data, paste0(unit, "_grid_area_crosswalk.rds")))
 
 # population by grid cell
-pop <- list.files(paste0(data_path, "/2_from_EE/populationDensity_10km_subgrid"),
+pop <- list.files(file.path(path_data, "2_from_EE", "populationDensity_10km_subgrid"),
                   full.names = T) %>% purrr::map_dfr(read.csv)
 
 # smoke PM predictions 
-smokePM <- readRDS(paste0(output_path, "/smokePM_predictions_20060101_20201231.rds"))
+smokePM <- readRDS(file.path(path_output, "smokePM_predictions_20060101_20201231.rds"))
 
 # lets only save predictions if there's a smoke day in the unit, start by identifying smoke-days per unit
 unit_smoke_days = smokePM %>% # 51434138 rows
@@ -67,5 +67,4 @@ avg_unit_smokePM <- unit_smokePM %>%
   ungroup
 
 saveRDS(ungroup(avg_unit_smokePM), 
-        paste0(output_path, "/", unit, "_smokePM_predictions_20060101_20201231.rds"))  
-
+        file.path(path_output, paste0(unit, "_smokePM_predictions_20060101_20201231.rds")))
