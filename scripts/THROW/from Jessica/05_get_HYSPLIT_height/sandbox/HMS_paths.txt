@@ -1,3 +1,0 @@
-dat_hms_smoke <- readRDS("~/BurkeLab Dropbox/Data/smoke/smoke_plumes_2006_2020.rds")
-dat_hms_fire <- readRDS("~/BurkeLab Dropbox/Data/fire/hms_fires.RDS")
-dat_hms_hysplit <- readRDS("~/BurkeLab Dropbox/Data/hms_hysplit/hms_hysplit_points.rds")
