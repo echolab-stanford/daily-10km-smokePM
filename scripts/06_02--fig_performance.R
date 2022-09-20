@@ -1,5 +1,6 @@
 source("./scripts/0_config.R")
 library(sf)
+library(RColorBrewer)
 
 smokePM_preds <- list.files("./output/smokePM_model",
                             pattern = "smokePM_pred",
@@ -81,20 +82,20 @@ list.files("./output/smokePM_model", pattern = "var_importance",
   extract(1:15,) %>%
   {ggplot(data = ., 
           aes(x = Gain, y = plot_feature)) + 
-  geom_segment(aes(yend = plot_feature, color = group), xend = 0, lwd = 6) + 
-  xlim(0, NA) + 
-  scale_color_manual(values = MetBrewer::met.brewer("VanGogh2", 15)[c(15, 3, 7, 1, 9)], 
-                     name = "") +
-  theme_classic() + 
-  ylab("") + 
-  theme(legend.position = c(0.7, 0.3))} %>% 
+      geom_segment(aes(yend = plot_feature, color = group), xend = 0, lwd = 6) + 
+      xlim(0, NA) + 
+      scale_color_manual(values = MetBrewer::met.brewer("VanGogh2", 15)[c(15, 3, 7, 1, 9)], 
+                         name = "") +
+      theme_classic() + 
+      ylab("") + 
+      theme(legend.position = c(0.7, 0.3),
+            plot.margin = margin(5.5, 9, 5.5, 5.5, "pt"))} %>% 
   ggsave(filename = "./figures/figure2/variable_importance.png", 
-         ., width = 5, height = 3.5)
+         ., width = 5.5, height = 3.5)
 
 # should we do joint feature importance given the correlation of all the aod variables? 
 
 # panel C, map r2 by station
-library(RColorBrewer)
 station_performance <- smokePM_preds %>% 
   filter(fold == test_fold) %>% 
   left_join(smokePM_data %>% select(id, date, smokePM)) %>% 
@@ -224,7 +225,7 @@ station_difftime <- epa_data %>%
 
 mod_data <- station_performance %>% 
   filter(n > 50) %>%
-  left_join(station_lc) %>% 
+  left_join(station_lc) %>%
   left_join(station_difftime) %>%
   left_join(epa_data %>% 
               group_by(id) %>% 
