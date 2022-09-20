@@ -20,14 +20,8 @@ epa_grid_cells <- epa_ll$grid_id_10km %>% unique()
 
 # smoke ----
 # results in the 10km grid ids and dates that are smoke days
-smoke_missing_dates <- list.files(file.path(path_data, "smoke_days"), 
-                                  full.names = TRUE) %>% 
-  map(function(x) {
-    print(x)
-    readRDS(x) %>% filter(note_smoke_date_not_online) %>% pull(date) %>% unique()
-  })
-
-smoke_missing_dates %<>% Reduce(c, .)
+smoke_missing_dates = readRDS(file.path(path_data, "smoke", "smoke_dates_not_online.rds"))
+smoke_missing_dates = ymd(smoke_missing_dates)
 
 smoke_days <- readRDS(file.path(path_data, "3_intermediate", "all_smoke_days_incl_cloudy.rds")) %>% 
   filter(grid_id_10km %in% epa_grid_cells)
