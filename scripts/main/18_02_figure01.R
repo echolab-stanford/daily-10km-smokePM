@@ -50,7 +50,7 @@ aod_missing <- list.files(file.path(path_data, "2_from_EE", "maiac_AODmissings/"
 
 # AOD
 aod_pred <- readRDS(file.path(
-  path_output, "AOD_predictions", "10km_smoke_days", 
+  path_output, "anomAOD", "predictions", "10km_smoke_days", 
   paste0("AOD_predictions_10km_", format(fig_date, "%Y%m%d"), ".rds"))
 ) %>% 
   select(grid_id_10km, value = aod_anom_pred_1.00)
@@ -256,7 +256,7 @@ station_folds <- readRDS(file.path(path_data, "4_clean", "smokePM_training.rds")
 
 # Plot smoke PM predictions
 smokePM_pred <- readRDS(file.path(
-  path_output, "smokePM_predictions", "10km_smoke_days", 
+  path_output, "smokePM", "predictions", "10km_smoke_days", 
   paste0("smokePM_predictions_10km_", format(fig_date, "%Y%m%d"), ".rds"))
 ) %>% 
   mutate(smokePM_pred = pmax(smokePM_pred, 0))

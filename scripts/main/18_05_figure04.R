@@ -3,7 +3,7 @@
 # Plots annual smoke PM.
 # ------------------------------------------------------------------------------
 # Load smoke PM predictions
-smokePM_preds <- readRDS(file.path(path_output, "smokePM_predictions_20060101_20201231.rds")) %>% 
+smokePM_preds <- readRDS(file.path(path_output, "smokePM", "predictions", "combined", "smokePM_predictions_20060101_20201231.rds")) %>% 
   mutate(smokePM_pred = pmax(smokePM_pred, 0))
 
 grid_10km <- st_read(file.path(path_data, "1_grids", "grid_10km_wgs84"))

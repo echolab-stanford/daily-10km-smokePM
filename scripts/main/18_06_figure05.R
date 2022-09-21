@@ -12,7 +12,7 @@ simple_states <- tigris::states(cb = TRUE) %>%
   st_transform(crs = st_crs(grid_10km))
 
 # load predictions and population data
-smokePM_preds <- readRDS(file.path(path_output, "smokePM_predictions_20060101_20201231.rds")) %>% 
+smokePM_preds <- readRDS(file.path(path_output, "smokePM", "predictions", "combined", "smokePM_predictions_20060101_20201231.rds")) %>% 
   mutate(smokePM_pred = pmax(smokePM_pred, 0))
 
 pop <- list.files(file.path(path_data, "2_from_EE", "populationDensity_10km_subgrid"),

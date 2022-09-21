@@ -22,7 +22,7 @@ test <- readRDS(file.path(path_data, "4_clean", "aod_training.rds"))
 nrow(test)
 
 # stats on extreme smoke days 
-smokePM_preds <- readRDS(file.path(path_output, "smokePM_predictions_20060101_20201231.rds"))
+smokePM_preds <- readRDS(file.path(path_output, "smokePM", "predictions", "combined", "smokePM_predictions_20060101_20201231.rds"))
 
 pop <- list.files(file.path(path_data, "2_from_EE", "populationDensity_10km_subgrid"),
                   full.names = T) %>% purrr::map_dfr(read.csv)
@@ -52,7 +52,7 @@ saveRDS(extremes_by_year, file.path(path_data, "extremes_by_year.rds"))
 # extremes_by_year = readRDS(file.path(path_data, "extremes_by_year.rds"))
 
 # how far off are we on the really low smoke days PM
-smokePM_preds <- list.files(file.path(path_output, "smokePM_model"), 
+smokePM_preds <- list.files(file.path(path_output, "smokePM", "model"), 
                             pattern = "smokePM_pred", 
                             full.names = TRUE) %>% 
   grep("drop\\.", ., value = TRUE) %>% 

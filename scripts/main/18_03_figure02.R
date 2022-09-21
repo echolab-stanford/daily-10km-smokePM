@@ -3,7 +3,7 @@
 # Plots model performance.
 # ------------------------------------------------------------------------------
 # Load smokePM predictions from held-out folds
-smokePM_preds <- list.files(file.path(path_output, "smokePM_model"),
+smokePM_preds <- list.files(file.path(path_output, "smokePM", "model"),
                             pattern = "smokePM_pred",
                             full.names = TRUE) %>%
   grep("drop\\.", ., value = TRUE) %>%
@@ -12,9 +12,6 @@ smokePM_preds <- list.files(file.path(path_output, "smokePM_model"),
       substr(gsub("smokePM_pred_fold", "", basename(x)), 1, 1)))
   }) %>%
   mutate(smokePM_pred = pmax(smokePM_pred, 0))
-
-# smokePM_preds <- readRDS(paste0(output_path, "/smokePM_predictions_2006_2020.rds")) %>% 
-#   mutate(smokePM_pred = pmax(smokePM_pred, 0))
 
 smokePM_data <- readRDS(file.path(path_data, "4_clean", "smokePM_training.rds")) %>% 
   select(id, date, smokePM, water:wetlands)
@@ -51,7 +48,7 @@ smokePM_preds %>%
          ., width = 7, height = 5)
 
 # panel B, variable importance 
-list.files(file.path(path_output, "smokePM_model"), 
+list.files(file.path(path_output, "smokePM", "model"), 
            pattern = "var_importance", 
            full.names = T) %>% 
   grep("fold99", ., value = T) %>% 
@@ -296,7 +293,6 @@ mod_data %>% st_drop_geometry() %>%
                                        "stations_100km", "stations_50km") ~ "station data amount", 
                            grepl("lc_", name) ~ "landcover", 
                            T ~ "other")) %>%  
-  # mutate(abs = abs(est_5_to_95)) %>% View
   {ggplot(data = ., 
           mapping = aes(y = fig_name, x = est_5_to_95)) + 
       geom_vline(xintercept = 0, linetype = "dashed") +

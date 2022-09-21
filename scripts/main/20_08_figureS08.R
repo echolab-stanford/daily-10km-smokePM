@@ -13,11 +13,6 @@ aod_train_cells <- aod_train$grid_id_1km %>% unique
 # use the extracted aod that we didn't train on to test with
 smoke_missing_dates = readRDS(file.path(path_data, "smoke", "smoke_dates_not_online.rds"))
 smoke_missing_dates = ymd(smoke_missing_dates)
-# smoke_missing_dates <- list.files(file.path(path_data, "smoke_days"), 
-#                                   full.names = TRUE) %>% 
-#   map(function(x) readRDS(x) %>% filter(note_smoke_date_not_online) %>% pull(date) %>% unique) 
-# 
-# smoke_missing_dates %<>% Reduce(c, .)
 
 smoke_days <- readRDS(file.path(path_data, "3_intermediate", "all_smoke_days_incl_cloudy.rds"))
 
@@ -46,7 +41,7 @@ aod_test_cells <- aod_test$grid_id_1km %>% unique()
 
 all_aod_cells <- c(aod_test_cells, aod_train_cells)
 
-aod_preds <- readRDS(file.path(path_output, "AOD_model", "test_aod_preds.rds"))
+aod_preds <- readRDS(file.path(path_output, "smokePM", "model", "test_aod_preds.rds"))
 # predicted vs observed, in and out of sample 
 aod_comp<- rbind(aod_train %>% select(grid_id_1km, date, aod_anom) %>% mutate(test_train = "train"), 
                  aod_test %>% filter(smoke_day == 1) %>% select(grid_id_1km, date, aod_anom) %>% mutate(test_train = "test")) %>% 
@@ -66,7 +61,7 @@ aod_comp %>%
          ., width = 6, height = 6)
 
 # variable importance 
-var_import <- readRDS(file.path(path_output, "AOD_model", "AOD_var_importance.rds"))
+var_import <- readRDS(file.path(path_output, "smokePM", "model", "AOD_var_importance.rds"))
 var_import$variable_importance %>% 
   left_join(data.frame(feat_name = var_import$feature_names) %>% 
               mutate(Feature = paste0("f", (1:n()) - 1)))  %>% 

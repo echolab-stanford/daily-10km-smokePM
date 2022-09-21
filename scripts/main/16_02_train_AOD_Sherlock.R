@@ -2,7 +2,7 @@
 # Written by: Marissa Childs
 # Trains anomalous AOD model.
 # ------------------------------------------------------------------------------
-txt_progress_file <- file.path(path_output, "aod_xgb_progress.txt")
+txt_progress_file <- file.path(path_output, "smokePM", "model", "aod_xgb_progress.txt")
 max_xgb_rounds <- 10000
 bayes_opt_n_init <- 24
 bayes_opt_n_iter <- 24
@@ -127,8 +127,8 @@ mod_gb_final <- xgb.train(
     magrittr::extract(unlist(bayes_opt_params$Pred), .),
   verbose = 1)
 
-saveRDS(bayes_opt_params, file.path(path_output, "aod_bayes_opt_params.rds"))
-xgb.save(mod_gb_final, file.path(path_output, "aod_mod.xgb"))
+saveRDS(bayes_opt_params, file.path(path_output, "smokePM", "model", "aod_bayes_opt_params.rds"))
+xgb.save(mod_gb_final, file.path(path_output, "anomAOD", "model", "aod_mod.xgb"))
 
 # save variable importance information 
 feat_names <- model.matrix.lm(~.-1, 
@@ -150,4 +150,4 @@ var_import <- xgb.importance(model = mod_gb_final)
 
 saveRDS(list(variable_importance = var_import, 
              feature_names = feat_names), 
-        file.path(path_output, "AOD_var_importance.rds"))
+        file.path(path_output, "smokePM", "model", "AOD_var_importance.rds"))

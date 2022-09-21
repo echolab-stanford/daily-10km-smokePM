@@ -14,7 +14,7 @@ print(paste0("tuning model, excluding fold ", cv_fold_num))
 print(paste0("excluding variables with names containing ",
              paste0(drop_vars, collapse = " or ")))
 
-txt_progress_file <- file.path(path_output, "smokePM_model", 
+txt_progress_file <- file.path(path_output, "smokePM", "model", 
                                paste0("smokePM_xgb_progress_fold", cv_fold_num, 
                                       paste0(c("_drop", drop_vars), collapse = "-"), ".txt"))
 max_xgb_rounds <- 10000
@@ -146,7 +146,7 @@ toc <- Sys.time()
 toc - tic
 
 saveRDS(bayes_opt_params, 
-        file.path(path_output, "smokePM_model", 
+        file.path(path_output, "smokePM", "model", 
                   paste0("smokePM_bayes_opt_params_fold", cv_fold_num, 
                          paste0(c("_drop", drop_vars), collapse = "-"),
                          ".rds")))
@@ -164,7 +164,7 @@ mod_gb_final <- xgb.train(
   verbose = 1)
 
 xgb.save(mod_gb_final,
-         file.path(path_output, "smokePM_model", 
+         file.path(path_output, "smokePM", "model", 
                    paste0("smokePM_mod_fold", cv_fold_num, 
                           paste0(c("_drop", drop_vars), collapse = "-"),
                           ".xgb")))
@@ -199,7 +199,7 @@ preds <- pred_data %>%
   cbind(smokePM_pred = predict(mod_gb_final, xgb_pred_mat))
 
 saveRDS(preds, 
-        file.path(path_output, "smokePM_model", paste0("smokePM_pred_fold", cv_fold_num, 
+        file.path(path_output, "smokePM", "model", paste0("smokePM_pred_fold", cv_fold_num, 
                                       paste0(c("_drop", drop_vars), collapse = "-"), 
                                       ".rds")))
 
@@ -228,7 +228,7 @@ feat_names <- model.matrix.lm(~.-1,
 
 saveRDS(list(variable_importance = var_import, 
              feature_names = feat_names), 
-        file.path(path_output, "smokePM_model", 
+        file.path(path_output, "smokePM", "model", 
                   paste0("smokePM_var_importance_fold", cv_fold_num, 
                          paste0(c("_drop", drop_vars), collapse = "-"),
                          ".rds")))

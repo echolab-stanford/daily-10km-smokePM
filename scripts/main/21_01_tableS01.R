@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 # Written by: Marissa Childs
-# Calculates supplementary table 4.
+# Calculates supplementary table 1.
 #-------------------------------------------------------------------------------
 epa_data <- readRDS(file.path(path_data, "3_intermediate", "station_smokePM.rds")) %>% 
   ungroup
@@ -74,9 +74,9 @@ monitor_smoke_dist <- epa_data %>%
   })
 
 saveRDS(monitor_smoke_dist, 
-        file.path(path_output, "monitor_smoke_distance.rds"))
+        file.path(path_data, "monitor_smoke_distance.rds"))
 
-# monitor_smoke_dist <- readRDS(file.path(path_output, "monitor_smoke_distance.rds"))
+# monitor_smoke_dist <- readRDS(file.path(path_data, "monitor_smoke_distance.rds"))
 
 reg_df <- monitor_smoke_dist %>% 
   left_join(monitors %>% st_drop_geometry() %>%
@@ -137,9 +137,9 @@ meteor <- c(grep("temperature|precipitation|wind",
 reg_df %<>% left_join(meteor, by = c("grid_id_10km" = "id_grid", "date" = "date"))
 
 saveRDS(reg_df,
-        file.path(path_output, "monitor_smoke_distance_w_met.rds"))
+        file.path(path_data, "monitor_smoke_distance_w_met.rds"))
 
-# reg_df <- readRDS(file.path(path_output, "monitor_smoke_distance_w_met.rds"))
+# reg_df <- readRDS(file.path(path_data, "monitor_smoke_distance_w_met.rds"))
 
 
 etable(feols(pm25 ~ i(plume_dist_factor, ref = "1000+") | 

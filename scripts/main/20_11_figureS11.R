@@ -3,7 +3,7 @@
 # Plots station MODIS landcover.
 # ------------------------------------------------------------------------------
 # Load smokePM predictions from held-out folds
-smokePM_preds <- list.files(file.path(path_output, "smokePM_model"),
+smokePM_preds <- list.files(file.path(path_output, "smokePM", "model"),
                             pattern = "smokePM_pred",
                             full.names = TRUE) %>%
   grep("drop\\.", ., value = TRUE) %>%

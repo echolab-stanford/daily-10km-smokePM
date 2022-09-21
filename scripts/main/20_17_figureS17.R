@@ -107,7 +107,7 @@ cross = st_intersection(gdp,
   {cbind(st_drop_geometry(.), 
          area = st_area(.))} 
 
-smokePM_pred <- readRDS(file.path(path_output, "smokePM_predictions_20060101_20201231.rds"))
+smokePM_pred <- readRDS(file.path(path_output, "smokePM", "predictions", "combined", "smokePM_predictions_20060101_20201231.rds"))
 
 # calculate annual smoke PM by grid cell and time period ----
 cell_smokePM <- smokePM_pred %>%

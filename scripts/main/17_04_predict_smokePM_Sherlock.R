@@ -17,7 +17,7 @@ year_months = unique(substr(all_dates, 1, 7))
 year_months = gsub("-", "_", year_months)
 
 # Load 2nd stage model for predicting smokePM
-xgb_mod <- xgb.load(file.path(path_output, "smokePM_model", "smokePM_mod_fold99_drop.xgb"))
+xgb_mod <- xgb.load(file.path(path_output, "smokePM", "model", "smokePM_mod_fold99_drop.xgb"))
 
 #-------------------------------------------------------------------------------
 #### Cross-sectional variables ####
@@ -171,7 +171,7 @@ for (m in 1:length(year_months)) {
     traj_points_d = traj_points %>% filter(date == dates_m[d])
     
     # Anomalous AOD
-    aod_d = file.path(path_output, "AOD_predictions", "10km_smoke_days", 
+    aod_d = file.path(path_output, "anomAOD", "predictions", "10km_smoke_days", 
                       paste0("AOD_predictions_10km_", ymd_str, ".rds"))
     aod_d = readRDS(aod_d)
     
@@ -253,7 +253,7 @@ for (m in 1:length(year_months)) {
     
     # save the 10km predictions 
     saveRDS(new_preds, 
-            file.path(path_output, "smokePM_predictions", "10km_smoke_days", 
+            file.path(path_output, "smokePM", "predictions", "10km_smoke_days", 
                       paste0("smokePM_predictions_10km_", ymd_str, ".rds")))
     print(paste(ymd_str, " - smokePM predictions saved"))
     return(0)

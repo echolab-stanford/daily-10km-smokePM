@@ -139,7 +139,7 @@ fire_dist = file.path(path_data, "distance_to_fire_cluster") %>%
 rm(filled_fire)
 
 # AOD predictions ----
-aod_pred <- list.files(file.path(path_output, "AOD_predictions", "10km_smoke_days"), 
+aod_pred <- list.files(file.path(path_output, "anomAOD", "predictions", "10km_smoke_days"), 
                        full.names = TRUE,
                        pattern = "rds") %>% 
   purrr::map_dfr(function(x){readRDS(x) %>% filter(grid_id_10km %in% epa_grid_cells$grid_id_10km)})

@@ -121,7 +121,7 @@ purpleair = purpleair %>%
 #-------------------------------------------------------------------------------
 #### Match to smoke PM predictions ####
 # Load 10 km grid smoke PM predictions
-preds = readRDS(file.path(path_output, "smokePM_predictions_20060101_20201231.rds")) %>% 
+preds = readRDS(file.path(path_output, "smokePM", "predictions", "combined", "smokePM_predictions_20060101_20201231.rds")) %>% 
   mutate(smokePM_pred = pmax(smokePM_pred, 0))
 
 # Join smoke PM predictions to observations by 10 km grid cell ID and date

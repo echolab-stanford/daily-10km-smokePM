@@ -6,7 +6,7 @@
 # ------------------------------------------------------------------------------
 # Load smokePM predictions
 smokePM_preds <- list.files(
-  file.path(path_output, "smokePM_predictions", "10km_smoke_days"), 
+  file.path(path_output, "smokePM", "predictions", "10km_smoke_days"), 
   full.names = TRUE
 ) %>% 
   map_dfr(readRDS) %>% 

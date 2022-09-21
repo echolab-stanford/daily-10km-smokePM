@@ -9,7 +9,7 @@ epa_ll <- st_read(file.path(path_data, "epa_station_locations")) %>%
 
 epa_data <- readRDS(file.path(path_data, "3_intermediate", "station_smokePM.rds"))
 
-smokePM_preds <- list.files(file.path(path_output, "smokePM_model"),
+smokePM_preds <- list.files(file.path(path_output, "smokePM", "model"),
                             pattern = "smokePM_pred",
                             full.names = TRUE) %>%
   grep("drop\\.", ., value = TRUE) %>%

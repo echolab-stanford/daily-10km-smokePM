@@ -35,7 +35,7 @@ if (!file.exists(file.path(path_data, "crosswalk_Census_tracts_grid_10km.rds")))
   cross = readRDS(file.path(path_data, "crosswalk_Census_tracts_grid_10km.rds"))
 }
 
-smokePM_pred <- readRDS(file.path(path_output, "smokePM_predictions_20060101_20201231.rds")) %>% 
+smokePM_pred <- readRDS(file.path(path_output, "smokePM", "predictions", "combined", "smokePM_predictions_20060101_20201231.rds")) %>% 
   mutate(smokePM_pred = pmax(smokePM_pred, 0))
 
 # calculate annual smoke PM by census tract and time period ----

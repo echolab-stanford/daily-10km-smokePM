@@ -10,7 +10,7 @@ monitors$state <- states$STUSPS[st_intersects(monitors, states) %>% unlist]
 smokePM_data <- readRDS(file.path(path_data, "4_clean", "smokePM_training.rds")) %>% 
   select(id, date, smokePM, fold)
 
-cv_preds <- list.files(file.path(path_output, "smokePM_model"), 
+cv_preds <- list.files(file.path(path_output, "smokePM", "model"), 
                        pattern = "pred_fold", 
                        full.names = TRUE) %>% 
   purrr::map_dfr(function(x){

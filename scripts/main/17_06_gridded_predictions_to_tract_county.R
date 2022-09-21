@@ -37,7 +37,7 @@ pop <- list.files(file.path(path_data, "2_from_EE", "populationDensity_10km_subg
                   full.names = T) %>% purrr::map_dfr(read.csv)
 
 # smoke PM predictions 
-smokePM <- readRDS(file.path(path_output, "smokePM_predictions_20060101_20201231.rds"))
+smokePM <- readRDS(file.path(path_output, "smokePM", "predictions", "combined", "smokePM_predictions_20060101_20201231.rds"))
 
 # lets only save predictions if there's a smoke day in the unit, start by identifying smoke-days per unit
 unit_smoke_days = smokePM %>% # 51434138 rows
@@ -67,4 +67,4 @@ avg_unit_smokePM <- unit_smokePM %>%
   ungroup
 
 saveRDS(ungroup(avg_unit_smokePM), 
-        file.path(path_output, paste0(unit, "_smokePM_predictions_20060101_20201231.rds")))
+        file.path(path_output, "smokePM", "predictions", "combined", paste0(unit, "_smokePM_predictions_20060101_20201231.rds")))

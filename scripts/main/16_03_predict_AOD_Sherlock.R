@@ -13,7 +13,7 @@ year_months = unique(substr(all_dates, 1, 7))
 year_months = gsub("-", "_", year_months)
 
 # Load 1st stage model for predicting AOD at 1 km
-xgb_mod <- xgb.load(file.path(path_output, "aod_mod.xgb"))
+xgb_mod <- xgb.load(file.path(path_output, "anomAOD", "model", "aod_mod.xgb"))
 
 # Load crosswalk between 1 km grid and 10 km grid
 crosswalk <- readRDS(file.path(path_data, "1_grids", "grid_crosswalk_1km_10km.rds"))
@@ -260,7 +260,7 @@ for (m in 1:length(year_months)) {
     
     # save the 1km predictions 
     saveRDS(new_preds, 
-            file.path(path_output, "AOD_predictions", "1km_smoke_days", 
+            file.path(path_output, "anomAOD", "predictions", "1km_smoke_days", 
                       paste0("AOD_predictions_1km_", ymd_str, ".rds")))
     print(paste(ymd_str, " - 1km predictions saved"))
     
@@ -276,7 +276,7 @@ for (m in 1:length(year_months)) {
                 aod_anom_pred_mean = mean(aod_anom_pred)) %>% 
       ungroup()
     saveRDS(preds_10km_feats, 
-            file.path(path_output, "AOD_predictions", "10km_smoke_days", 
+            file.path(path_output, "anomAOD", "predictions", "10km_smoke_days", 
                       paste0("AOD_predictions_10km_", ymd_str, ".rds")))
     print(paste(ymd_str, " - 10km aggregates of predictions saved"))
     return(0)
