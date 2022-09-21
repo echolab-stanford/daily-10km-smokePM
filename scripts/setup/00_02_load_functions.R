@@ -18,14 +18,7 @@ get_start_time <- function(message = "Time started:") {
   return(t)
 }
 
-
-
-
-
-
-
-
-
+# Calculations
 nonsmoke_medians <- function(data, 
                              main_var, 
                              smoke_day, 
@@ -188,10 +181,7 @@ eval_metrics <- function(data, models, test_tune, obs, pred,
     return
 }
 
-
-
-
-
+# Plotting
 mid_rescaler <- function(mid = 0) {
   function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
     scales::rescale_mid(x, to, from, mid)

@@ -1,6 +1,6 @@
 #-------------------------------------------------------------------------------
 # Provide your Google Earth Engine email
-gee_email = readRDS("~/Documents/Registrations/Google Earth Engine/GEE_email.rds") # "INSERT YOUR GEE EMAIL HERE, e.g. jdoe@stanford.edu"
+gee_email = "INSERT YOUR GEE EMAIL HERE, e.g. jdoe@stanford.edu"
 try(ee_Initialize(email = gee_email))
 
 # Set the number of cores to use in parallel computing
@@ -12,13 +12,13 @@ if (nchar(num_cores) > 0) {
 }
 
 # Provide your US Census API Key
-key <- readRDS("~/Documents/Registrations/US Census/us_census_data_api_key.rds") # "INSERT YOUR US CENSUS BUREAU API KEY HERE"
+key <- "INSERT YOUR US CENSUS BUREAU API KEY HERE"
 census_api_key(key)
 
 #-------------------------------------------------------------------------------
 # Set to location of Dropbox and GitHub folders
-path_dropbox = "~/BurkeLab Dropbox/Projects/daily-10km-smokePM-testing/" # "INSERT PATH TO DROPBOX FOLDER HERE"
-path_github = "~/Documents/GitHub/daily-10km-smokePM/" # "INSERT PATH TO GITHUB REPO HERE"
+path_dropbox = "INSERT PATH TO DROPBOX FOLDER HERE"
+path_github = "INSERT PATH TO GITHUB REPO HERE"
 
 # File paths based on root folders above
 path_data = file.path(path_dropbox, "data")
