@@ -90,9 +90,10 @@ list.files(file.path(path_output, "smokePM_model"),
                          name = "") +
       theme_classic() + 
       ylab("") + 
-      theme(legend.position = c(0.7, 0.3))} %>% 
+      theme(legend.position = c(0.7, 0.3),
+            plot.margin = margin(5.5, 9, 5.5, 5.5, "pt"))} %>% 
   ggsave(filename = file.path(path_figures, "figure02b.png"), 
-         ., width = 5, height = 3.5)
+         ., width = 5.5, height = 3.5)
 
 # should we do joint feature importance given the correlation of all the aod variables? 
 
