@@ -1,8 +1,8 @@
 # ------------------------------------------------------------------------------
 # Written by: Marissa Childs
-# Aggregates 10 km grid smokePM predictions to county and census tract levels.
+# Aggregates 10 km grid smokePM predictions to county level.
 # ------------------------------------------------------------------------------
-unit <- "tract" # alternatively, "tract"
+unit <- "county" # alternatively, "tract"
 # load shapefile, plus 10km grid transformed to match the crs
 if(unit == "county"){
   unit_sf <- counties() %>% 
@@ -66,5 +66,6 @@ avg_unit_smokePM <- unit_smokePM %>%
   summarise(smokePM_pred = weighted.mean(smokePM_pred, pop)) %>% 
   ungroup
 
-saveRDS(ungroup(avg_unit_smokePM), 
-        file.path(path_output, "smokePM", "predictions", "combined", paste0(unit, "_smokePM_predictions_20060101_20201231.rds")))
+saveRDS(avg_unit_smokePM, 
+        file.path(path_output, "smokePM", "predictions", "combined", 
+          paste0(unit, "_smokePM_predictions_20060101_20201231.rds")))
