@@ -34,7 +34,7 @@ states %>%
   mutate(pct_change_fire_area = unclass(pct_change_fire_area)) %>%
   {ggplot(data =., aes(fill = pct_change_fire_area)) + 
       geom_sf() + 
-      scale_fill_gradient2() +
+      scale_fill_gradient2(low = muted("blue"), high = muted("red")) +
       labs(fill = "Percent change\nin burned area") +
       theme_void() + 
       theme(legend.position = c(0.92, 0.32))} %>% 
