@@ -1,0 +1,31 @@
+\begin{table}[H]
+    \centering
+    \caption{Smoke \pmt Model inputs. NED = National Elevation Database, NLCD = National Land Cover Database}
+    \begin{tabular}{l|c|c}
+        Feature & Source & Native resolution\\
+        \hline
+        \hline
+        \shortstack[l]{Aerosol optical thickness anomalies\\ (current, 1-day, 2-day, and 3-day lagged)}& MERRA-2 & ~50km\\
+        \hline 
+        Percent of AOD observations missing & MODIS MAIAC & 1km \\
+        \hline
+        \shortstack[l]{Predicted aerosol optical depth anomalies \\ (min, max, mean, 25th, 50th, and 75th percentiles)} & \shortstack[l]{predicted, trained on \\ MODIS MAIAC} & - \\
+        \hline 
+        \shortstack[l]{Elevation \\ (mean and standard deviation in grid cells)} & USGS NED & ~10m \\
+        \hline
+        \shortstack[l]{Percent of area in each Level 1 land cover class \\ (water, developed, barren, shrubland, herbaceous,\\cultivated, forest, wetlands)} & USGS NLCD & 30m \\
+        \hline 
+        Distance to nearest fire cluster & HMS fire points & - \\
+        \hline 
+        \shortstack[l]{Size of nearest fire cluster \\ (area and number of constituent fire points)} & HMS fire points & -\\
+        \hline 
+        \shortstack[l]{Meteorology \\ (daily mean, max, and min PBL,\\average sea level pressure)} & ERA5 global & ~30km \\
+        \hline
+        \shortstack[l]{Meteorology \\ (total precipitation, average 2m air temperature,\\ average eastward and northward wind speed,\\ average surface pressure, 2m dewpoint temperature)} & ERA5 land & ~11km \\
+        \hline 
+        \shortstack[l]{HYSPLIT trajectory points in 50 km buffer \\ (by height quintiles: 0 - 1.1, 1.1-1.8, 1.8 - 2.7,\\2.7 - 4.3, 4.3+ km AGL)} & \shortstack[l]{HYSPLIT simulations\\from HMS HYSPLIT points} & - \\ 
+        \hline
+        Latitude, Longitude, Month & & - \\
+    \end{tabular}
+    \label{tab:inputs}
+\end{table}

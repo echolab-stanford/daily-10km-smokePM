@@ -1,0 +1,43 @@
+
+\begin{tabular}{lcccc}
+\tabularnewline\midrule\midrule
+Dependent Variable: & \multicolumn{4}{c}{pm25}\\
+ & plumes & plumes + hysplit & plumes w meteorology & plumes + hysplit w meteorology \\ 
+Model: & (1) & (2) & (3) & (4)\\
+\midrule \emph{Variables} &   &   &   &  \\
+plume\_dist\_factor $=$ overhead & 4.504$^{***}$ &    & 3.099$^{***}$ &   \\
+  & (0.0510) &    & (0.0410) &   \\
+plume\_dist\_factor $=$ 0-100 & 1.272$^{***}$ &    & 0.3164$^{***}$ &   \\
+  & (0.0203) &    & (0.0226) &   \\
+plume\_dist\_factor $=$ 100-250 & 1.012$^{***}$ &    & 0.2041$^{***}$ &   \\
+  & (0.0150) &    & (0.0140) &   \\
+plume\_dist\_factor $=$ 250-500 & 0.7020$^{***}$ &    & 0.1632$^{***}$ &   \\
+  & (0.0127) &    & (0.0104) &   \\
+plume\_dist\_factor $=$ 500-750 & 0.3203$^{***}$ &    & 0.1121$^{***}$ &   \\
+  & (0.0117) &    & (0.0094) &   \\
+plume\_dist\_factor $=$ 750-1000 & 0.0608$^{***}$ &    & 0.0619$^{***}$ &   \\
+  & (0.0105) &    & (0.0091) &   \\
+smoke\_dist\_factor $=$ overhead &    & 4.934$^{***}$ &    & 3.399$^{***}$\\
+  &    & (0.0482) &    & (0.0385)\\
+smoke\_dist\_factor $=$ 0-100 &    & 1.947$^{***}$ &    & 0.8033$^{***}$\\
+  &    & (0.0202) &    & (0.0211)\\
+smoke\_dist\_factor $=$ 100-250 &    & 1.449$^{***}$ &    & 0.5029$^{***}$\\
+  &    & (0.0160) &    & (0.0141)\\
+smoke\_dist\_factor $=$ 250-500 &    & 0.9806$^{***}$ &    & 0.3568$^{***}$\\
+  &    & (0.0140) &    & (0.0113)\\
+smoke\_dist\_factor $=$ 500-750 &    & 0.4757$^{***}$ &    & 0.2037$^{***}$\\
+  &    & (0.0127) &    & (0.0103)\\
+smoke\_dist\_factor $=$ 750-1000 &    & 0.1570$^{***}$ &    & 0.1093$^{***}$\\
+  &    & (0.0113) &    & (0.0100)\\
+\midrule \emph{Fixed-effects} &   &   &   &  \\
+id-month & Yes & Yes & Yes & Yes\\
+state-year-month & Yes & Yes & Yes & Yes\\
+\midrule \emph{Fit statistics} &   &   &   &  \\
+Observations & 4,442,067 & 4,442,067 & 4,442,067 & 4,442,067\\
+R$^2$ & 0.32277 & 0.32600 & 0.39479 & 0.39590\\
+Within R$^2$ & 0.02160 & 0.02626 & 0.12564 & 0.12724\\
+\midrule\midrule\multicolumn{5}{l}{\emph{Clustered (id-month) standard-errors in parentheses}}\\
+\multicolumn{5}{l}{\emph{Signif. Codes: ***: 0.01, **: 0.05, *: 0.1}}\\
+\end{tabular}
+
+

@@ -1,0 +1,16 @@
+\begin{table}[ht]
+\caption{Out-of-sample smoke \pmt model performance on different subset or aggregations of the data (rows) and different performance metrics (columns). Within $R^2$ controls for monitor and year fixed effects. }
+\centering
+\begin{tabular}{lccc}
+  \hline
+   & within $R^2$ & $R^2$ & RMSE \\ 
+  \hline
+   smoke days & 0.65 & 0.67 & 9.57 \\ 
+   day $<$50\mg & 0.47 & 0.50 & 5.07 \\ 
+   day $\geq$50\mg & 0.36 & 0.44 & 70.99 \\ 
+   month avg & 0.67 & 0.67 & 3.75 \\ 
+   year avg & 0.68 & 0.72 & 2.89 \\ 
+   \hline
+\end{tabular}
+\label{tab:model_performance}
+\end{table}
