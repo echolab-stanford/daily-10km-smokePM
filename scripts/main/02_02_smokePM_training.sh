@@ -19,7 +19,7 @@ echo "#!/bin/bash
 
 ml R/4.0.2
 
-Rscript scripts/main/17_03_train_smokePM_Sherlock.R "$a" "$b" " > $job_file
+Rscript scripts/main/02_02_train_smokePM_Sherlock.R "$a" "$b" " > $job_file
 
     sbatch $job_file
 

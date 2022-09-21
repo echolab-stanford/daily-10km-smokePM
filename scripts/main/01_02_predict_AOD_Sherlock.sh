@@ -16,4 +16,4 @@ ml physics gdal/2.2.1 udunits proj/4.9.3 geos
 ml R/4.0.2
 
 # execute script
-Rscript scripts/main/16_03_predict_AOD_Sherlock.R
+Rscript scripts/main/01_02_predict_AOD_Sherlock.R
