@@ -11,7 +11,7 @@ Daily smoke PM<sub>2.5</sub> predictions from Jan 1, 2006 to Dec 31, 2020 for th
 
 ## How to replicate results
 1. Download this repository.
-2. Download data from [Dropbox](https://www.dropbox.com/sh/cvl54kv4bsryme0/AAD8z2j-wcqZ_S7qc1jIcF7Na?dl=0). Place downloaded Dropbox data in the same folder as the downloaded GitHub repository.
+2. Download data from [Dropbox](https://www.dropbox.com/sh/cvl54kv4bsryme0/AAD8z2j-wcqZ_S7qc1jIcF7Na?dl=0). Place files downloaded from Dropbox in the same folder as the downloaded GitHub repository.
 3. Change settings in `scripts/setup/00_03_load_settings.R`:
     1. Set `gee_email` to your Google Earth Engine email.
     2. Set `key` to the value of your US Census Bureau API Key (which can be requested [here](https://api.census.gov/data/key_signup.html)).
