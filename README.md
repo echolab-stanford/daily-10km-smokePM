@@ -9,7 +9,7 @@ Daily smoke PM<sub>2.5</sub> predictions from Jan 1, 2006 to Dec 31, 2020 for th
 * [County](https://www.dropbox.com/sh/hrd009uk34k7d6n/AADeUtrYp1iQWdAPwX5eKI-2a?dl=0)
 * [Census tract ](https://www.dropbox.com/sh/atmtfc54zuknnob/AAA7AVRQP-GoIMHpxlvfN7RBa?dl=0)
 
-# How to replicate results
+## How to replicate results
 1. Download this repository.
 2. Download data from [Dropbox](https://www.dropbox.com/sh/cvl54kv4bsryme0/AAD8z2j-wcqZ_S7qc1jIcF7Na?dl=0). Place downloaded Dropbox data in the same folder as the downloaded GitHub repository.
 3. Change settings in `scripts/setup/00_03_load_settings.R`:
