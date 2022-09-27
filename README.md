@@ -43,7 +43,7 @@ out = mutate(out, smokePM_pred = replace_na(smokePM_pred, 0))
 * `10km_grid/smokePM2pt5_predictions_on_smokedays_daily_10km_20060101-20201231.csv`: this is the same as `smokePM2pt5_predictions_on_smokedays_daily_10km_20060101-20201231.rds`, except it is saved as a CSV file.
 
 County
-* `county/tl_2019_us_county/`: this is a folder that contains the shapefile for all US counties in 2019. Files were downloaded from the US Census Bureau TIGER/Line Shapefiles website (https://www.census.gov/cgi-bin/geo/shapefiles/index.php). R users may also use the `tigris` package.
+* `county/tl_2019_us_county/`: this is a folder that contains the shapefile for all US counties in 2019. Files were downloaded from the US Census Bureau TIGER/Line Shapefiles [website](https://www.census.gov/cgi-bin/geo/shapefiles/index.php). R users may also use the `tigris` package.
 * `county/smokePM2pt5_predictions_daily_county_20060101-20201231.rds`: this is a file that contains a data frame with the final set of daily smoke PM2.5 predictions at the county level from January 1, 2006 to December 31, 2020 for the contiguous US. County-level smoke PM2.5 predictions are aggregated from smoke PM2.5 predictions at the 10 km resolution using population and area of intersection-weighted averaging. The `GEOID` column in this file corresponds to the `GEOID` column in the county shapefile. Example R code for merging to the county shapefile:
 ```
 library(sf)
@@ -61,7 +61,7 @@ out = counties %>% right_join(preds, by = "GEOID")
 * `county/smokePM2pt5_predictions_daily_county_20060101-20201231.csv`: this is the same as `smokePM2pt5_predictions_daily_county_20060101-20201231.rds`, except it is saved as a CSV file.
 
 Census tract
-* `tract/tracts/`: this is a folder that contains the shapefiles for all US census tracts by state/territory in 2019. Tract-level smoke PM2.5 predictions are aggregated from smoke PM2.5 predictions at the 10 km resolution using population and area of intersection-weighted averaging. Files were downloaded from the US Census Bureau TIGER/Line Shapefiles website (https://www.census.gov/cgi-bin/geo/shapefiles/index.php). R users may also use the `tigris` package.
+* `tract/tracts/`: this is a folder that contains the shapefiles for all US census tracts by state/territory in 2019. Tract-level smoke PM2.5 predictions are aggregated from smoke PM2.5 predictions at the 10 km resolution using population and area of intersection-weighted averaging. Files were downloaded from the US Census Bureau TIGER/Line Shapefiles [website](https://www.census.gov/cgi-bin/geo/shapefiles/index.php). R users may also use the `tigris` package.
 * `tract/smokePM2pt5_predictions_daily_tract_20060101-20201231.rds`: this is a file that contains a data frame with the final set of daily smoke PM2.5 predictions at the census tract level from January 1, 2006 to December 31, 2020 for the contiguous US. The `GEOID` column in this file corresponds to the `GEOID` column in the census tract shapefiles. Example R code for merging to the census tract shapefiles:
 ```
 library(sf)
