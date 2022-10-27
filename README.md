@@ -7,7 +7,8 @@ Results from the paper are in the `figures/clean` and `tables/clean` folders. Co
 Daily smoke PM<sub>2.5</sub> predictions from Jan 1, 2006 to Dec 31, 2020 for the contiguous US can be [downloaded](https://www.dropbox.com/sh/wh45f4uf7gpb3ct/AAAycHq02lp1KfqxDed0SKxFa?dl=0) at the following spatial scales:
 * [10 km grid](https://www.dropbox.com/sh/7vclx9rw0e7i0hq/AAD7GCLPbgGJZx0iQfwSWcxLa?dl=0)
 * [County](https://www.dropbox.com/sh/hrd009uk34k7d6n/AADeUtrYp1iQWdAPwX5eKI-2a?dl=0)
-* [Census tract ](https://www.dropbox.com/sh/atmtfc54zuknnob/AAA7AVRQP-GoIMHpxlvfN7RBa?dl=0)
+* [Census tract](https://www.dropbox.com/sh/atmtfc54zuknnob/AAA7AVRQP-GoIMHpxlvfN7RBa?dl=0)
+* [ZCTA5](https://www.dropbox.com/sh/cudymfn36bnocib/AABxShnP2NcofDppE55KA67Ta?dl=0)
 
 ### Descriptions of final prediction files
 10 km grid
