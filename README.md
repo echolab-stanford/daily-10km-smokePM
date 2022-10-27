@@ -80,6 +80,24 @@ out = tracts %>% right_join(preds, by = "GEOID")
 ```
 * `tract/smokePM2pt5_predictions_daily_tract_20060101-20201231.csv`: this is the same as `smokePM2pt5_predictions_daily_tract_20060101-20201231.rds`, except it is saved as a CSV file.
 
+ZIP Code Tabulation Area (ZCTA5)
+* `zcta/tl_2019_us_zcta510/`: this is a folder that contains the shapefile for US zip code tabulation areas in 2019. Files were downloaded from the US Census Bureau TIGER/Line Shapefiles [website](https://www.census.gov/cgi-bin/geo/shapefiles/index.php). R users may also use the `tigris` package.
+* `zcta/smokePM2pt5_predictions_daily_zcta_20060101-20201231.rds`: this is a file that contains a data frame with the final set of daily smoke PM2.5 predictions at the zip level from January 1, 2006 to December 31, 2020 for the contiguous US. Zip-level smoke PM2.5 predictions are aggregated from smoke PM2.5 predictions at the 10 km resolution using population and area of intersection-weighted averaging. The `GEOID10` column in this file corresponds to the `GEOID10` column in the zcta shapefile. Example R code for merging to the zcta shapefile:
+```
+library(sf)
+library(dplyr)
+
+# Load smokePM predictions
+preds = readRDS("./final/zcta/smokePM2pt5_predictions_daily_zcta_20060101-20201231.rds")
+
+# Load counties
+counties = read_sf("./final/zcta/tl_2019_us_zcta510")
+
+# Match smokePM predictions to counties
+out = counties %>% right_join(preds, by = "GEOID10")
+```
+* `zcta/smokePM2pt5_predictions_daily_zcta_20060101-20201231.csv`: this is the same as `smokePM2pt5_predictions_daily_zcta_20060101-20201231.rds`, except it is saved as a CSV file.
+
 ## How to replicate results
 1. Download this repository.
 2. Download data from [Dropbox](https://www.dropbox.com/sh/cvl54kv4bsryme0/AAD8z2j-wcqZ_S7qc1jIcF7Na?dl=0). Place files downloaded from Dropbox in the same folder as the downloaded GitHub repository.
