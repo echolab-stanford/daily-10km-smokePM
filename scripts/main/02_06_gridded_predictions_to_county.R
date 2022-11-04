@@ -23,7 +23,7 @@ if(unit == "county"){
 }
 
 # read in the grid
-grid_10km <- st_read(file.path(path_data, "1_grids", "grid_10km_wgs84")) %>% 
+grid_10km <- st_read(file.path(path_final, "10km_grid", "10km_grid_wgs84", "10km_grid_wgs84.shp")) %>% 
   st_transform(st_crs(unit_sf))
 
 # make a crosswalk with intersection area with grid cells

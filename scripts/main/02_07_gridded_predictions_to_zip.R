@@ -4,35 +4,49 @@ source("scripts/setup/00_03_load_settings.R")
 
 # ------------------------------------------------------------------------------
 # Written by: Marissa Childs
-# Aggregates 10 km grid smokePM predictions to census tract level.
+# Aggregates 10 km grid smokePM predictions to zip level.
 # ------------------------------------------------------------------------------
-unit <- "tract" # alternatively, "county"
+unit <- "zcta" # alternatively, "county"
 # load shapefile, plus 10km grid transformed to match the crs
-if(unit == "county"){
+if (unit == "county") {
   unit_sf <- counties() %>% 
     filter(STATEFP %in% nonContig_stateFIPS == F)
-} else if(unit == "tract"){
+} else if (unit == "tract") {
   unit_sf <- states() %>% 
     filter(STATEFP %in% nonContig_stateFIPS == F) %>% 
     pull(STATEFP) %>% 
     map_dfr(function(x){
       tracts(x, year = 2019) %>% select(STATEFP, GEOID)
     })
-} else{
-  stop("only allowed units are \"tract\" or \"county\"")
+} else if (unit == "zcta") {
+  unit_sf <- states() %>% 
+    filter(STATEFP %in% nonContig_stateFIPS == F) %>% 
+    pull(STATEFP) %>% 
+    map_dfr(function(x){
+      zctas(x, year = 2019) %>% select(ZCTA5CE10, GEOID10)
+    })
+} else {
+  stop("only allowed units are \"tract\" or \"zcta\" or \"county\"")
 }
 
 # read in the grid
-grid_10km <- st_read(file.path(path_data, "1_grids", "grid_10km_wgs84")) %>% 
+grid_10km <- st_read(file.path(path_final, "10km_grid", "10km_grid_wgs84", "10km_grid_wgs84.shp")) %>% 
   st_transform(st_crs(unit_sf))
 
 # make a crosswalk with intersection area with grid cells
-unit_cross = st_intersection(unit_sf,
-                             grid_10km) %>% 
-  select(GEOID, grid_id_10km = ID) %>% 
-  {cbind(st_drop_geometry(.), 
-         area = st_area(.))} 
-
+if (unit %in% c("county", "tract")) {
+  unit_cross = st_intersection(unit_sf,
+                               grid_10km) %>% 
+    select(GEOID, grid_id_10km = ID) %>% 
+    {cbind(st_drop_geometry(.), 
+           area = st_area(.))} 
+} else if (unit == "zcta") {
+  unit_cross = st_intersection(unit_sf,
+                               grid_10km) %>% 
+    select(GEOID10, grid_id_10km = ID) %>% 
+    {cbind(st_drop_geometry(.), 
+           area = st_area(.))} 
+}
 # save the crosswalk since it takes a while to make 
 saveRDS(unit_cross, file.path(path_data, paste0(unit, "_grid_area_crosswalk.rds")))
 # unit_cross <- readRDS(file.path(path_data, paste0(unit, "_grid_area_crosswalk.rds")))
@@ -45,6 +59,9 @@ pop <- list.files(file.path(path_data, "2_from_EE", "populationDensity_10km_subg
                   full.names = T) %>% purrr::map_dfr(read.csv)
 
 # loop through work with one date at a time? rbind the data frames from the dates together
+if (unit == "zcta") {
+  unit_cross = unit_cross %>% rename(GEOID = GEOID10)
+}
 avg_unit_smokePM <- smokePM %>% 
   pull(date) %>% 
   unique %>% 
@@ -76,7 +93,10 @@ avg_unit_smokePM <- smokePM %>%
       summarise(smokePM_pred = weighted.mean(smokePM_pred, pop),
                 .groups = "drop") 
   })
+if (unit == "zcta") {
+  avg_unit_smokePM = avg_unit_smokePM %>% rename(GEOID10 = GEOID)
+}
 
 saveRDS(avg_unit_smokePM, 
         file.path(path_output, "smokePM", "predictions", "combined", 
-          paste0(unit, "_smokePM_predictions_20060101_20201231.rds")))
+                  paste0(unit, "_smokePM_predictions_20060101_20201231.rds")))
