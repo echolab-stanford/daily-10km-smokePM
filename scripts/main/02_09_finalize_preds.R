@@ -10,13 +10,13 @@ source("scripts/setup/00_03_load_settings.R")
 preds = readRDS(file.path(path_output, "smokePM", "predictions", "combined", "smokePM_predictions_20060101_20201231.rds"))
 
 # Save
-saveRDS(preds, file.path(path_final, "10km_grid", "smokePM2pt5_predictions_on_smokedays_daily_10km_20060101-20201231.rds"))
+saveRDS(preds, file.path(path_final, "10km_grid", "smokePM2pt5_predictions_daily_10km_20060101-20201231.rds"))
 
 # Convert date to character
 preds = preds %>% mutate(date = format(date, "%Y%m%d"))
 
 # Save
-write.csv(preds, file.path(path_final, "10km_grid", "smokePM2pt5_predictions_on_smokedays_daily_10km_20060101-20201231.csv"), row.names = F)
+write.csv(preds, file.path(path_final, "10km_grid", "smokePM2pt5_predictions_daily_10km_20060101-20201231.csv"), row.names = F)
 
 # ------------------------------------------------------------------------------
 # Load predictions aggregated to county level
