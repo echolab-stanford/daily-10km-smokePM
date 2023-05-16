@@ -69,6 +69,9 @@ avg_unit_smokePM <- smokePM %>%
                 by = c("grid_id_10km", "date")) %>%
       # fill missing smoke PM values with zero
       replace_na(list(smokePM_pred = 0)) %>%
+      group_by(GEOID, date) %>%
+      mutate(grid_pop_per_m2 = ifelse(rep(all(grid_pop_per_m2 == 0), n()), 1, grid_pop_per_m2)) %>%
+      ungroup() %>%
       mutate(area = unclass(area),
              pop = grid_pop_per_m2*area) %>%
       # for each unit-date calculate pop-weighted avg 
