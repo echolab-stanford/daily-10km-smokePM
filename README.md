@@ -145,7 +145,7 @@ out = mutate(out, smokePM_pred = replace_na(smokePM_pred, 0))
 
 ## How to replicate results
 1. Download this repository.
-2. Download data from [Dropbox](https://www.dropbox.com/sh/cvl54kv4bsryme0/AAD8z2j-wcqZ_S7qc1jIcF7Na?dl=0). Place files downloaded from Dropbox in the same folder as the downloaded GitHub repository.
+2. Download the [Dropbox](https://www.dropbox.com/sh/cvl54kv4bsryme0/AAD8z2j-wcqZ_S7qc1jIcF7Na?dl=0) folder. Place files downloaded from Dropbox in the same folder as the downloaded GitHub repository.
 3. Change settings in `scripts/setup/00_03_load_settings.R`:
     1. Set `gee_email` to your Google Earth Engine email.
     2. Set `key` to the value of your US Census Bureau API Key (which can be requested [here](https://api.census.gov/data/key_signup.html)).
