@@ -1,7 +1,7 @@
 # daily-10km-smokePM
 Repo supporting [Childs et al 2022 "Daily local-level estimates of ambient wildfire smoke PM<sub>2.5</sub> for the contiguous US"](https://doi.org/10.1021/acs.est.2c02934).
 
-Results from the paper are in the `figures/clean` and `tables/clean` folders. Code to replicate results are in the `scripts` folder. Data, models, and predictions are in [Dropbox](https://www.dropbox.com/sh/cvl54kv4bsryme0/AAD8z2j-wcqZ_S7qc1jIcF7Na?dl=0).
+Results from the paper are in the `figures/clean` and `tables/clean` folders. Code to replicate results are in the `scripts` folder. Data, models, and predictions are in [Dropbox](https://www.dropbox.com/sh/e7m3313fb7sqxui/AABGu-jUO3Ps2isGHbB2EGfAa?dl=0).
 
 ## Final predictions
 Daily smoke PM<sub>2.5</sub> predictions from Jan 1, 2006 to Dec 31, 2020 for the contiguous US can be [downloaded](https://www.dropbox.com/sh/16bwdnfbakvuf3x/AABlnrek080Qu9YnbkLkUk8ha?st=a2oli9on&dl=0) at the following spatial scales:
@@ -147,7 +147,7 @@ out = mutate(out, smokePM_pred = replace_na(smokePM_pred, 0))
 
 ## How to replicate results
 1. Download this repository.
-2. Download the [Dropbox](https://www.dropbox.com/sh/cvl54kv4bsryme0/AAD8z2j-wcqZ_S7qc1jIcF7Na?dl=0) folder. Place files downloaded from Dropbox in the same folder as the downloaded GitHub repository.
+2. Download the [Dropbox](https://www.dropbox.com/sh/e7m3313fb7sqxui/AABGu-jUO3Ps2isGHbB2EGfAa?dl=0) folder. Place files downloaded from Dropbox in the same folder as the downloaded GitHub repository.
 3. Change settings in `scripts/setup/00_03_load_settings.R`:
     1. Set `gee_email` to your Google Earth Engine email.
     2. Set `key` to the value of your US Census Bureau API Key (which can be requested [here](https://api.census.gov/data/key_signup.html)).
